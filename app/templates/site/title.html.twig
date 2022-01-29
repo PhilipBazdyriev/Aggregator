@@ -1,0 +1,66 @@
+{% extends 'site.html.twig' %}
+
+{% block title %}{{ title.name }} ({{ title.year }}){% endblock %}
+
+{% block content %}
+    <img src="{{ title.posterUrl }}" alt="{{ title.name }} ({{ title.year }})" class="ui top aligned medium left floated image">
+    <h1 style="margin-top: 0">{{ title.name }} <span style="color: #aaa"></span></h1>
+    <h2>{{ title.year }}</h2>
+    <div class="ui star rating" data-rating="4" data-max-rating="5" id="rating"></div>
+    <h3>{{ title.ageRating }}</h3>
+    <div>{{ title.description|nl2br }}</div>
+    <div class="clearfix"></div>
+    <script>
+        $('#rating')
+            .rating({
+                initialRating: 2,
+                maxRating: 4
+            })
+        ;
+    </script>
+
+    <h2>Комментарии</h2>
+    <div class="ui comments">
+        <div class="comment">
+            <a class="avatar">
+                <img src="/img/users/avatars/user-thumb.jpg">
+            </a>
+            <div class="content">
+                <a class="author">Джо Хендерсон</a>
+                <div class="metadata">
+                    <div class="date">1 день назад</div>
+                </div>
+                <div class="text">
+                    <p>Часы, минуты и секунды остаются видны, напоминая что в ваших усилиях положить их туда. </p>
+                    <p>Сохраните до следующей пробежки, когда часы позволят вам увидеть, насколько непостоянны ваши усилия.</p>
+                </div>
+                <div class="actions">
+                    <a class="reply">Reply</a>
+                </div>
+            </div>
+        </div>
+        <div class="comment">
+            <a class="avatar">
+                <img src="/img/users/avatars/user-thumb.jpg">
+            </a>
+            <div class="content">
+                <a class="author">Кристиан Рока</a>
+                <div class="metadata">
+                    <div class="date">2 дня назад</div>
+                </div>
+                <div class="text">Я ретвитнул это. </div>
+                <div class="actions">
+                    <a class="reply">Reply</a>
+                </div>
+            </div>
+        </div>
+        <form class="ui reply form">
+            <div class="field">
+                <textarea></textarea>
+            </div>
+            <div class="ui primary submit labeled icon button"><i class="icon edit"></i> Добавить комментарий
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

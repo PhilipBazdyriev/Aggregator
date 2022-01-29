@@ -1,0 +1,21 @@
+<div class="ui segment breadcrumb">
+    {% for key, element in breadcrumb %}
+        {% if key %}
+            <span class="divider">/</span>
+        {% endif %}
+        {% if key == breadcrumb|length - 1 %}
+            <div class="active section">{{ element.text }}</div>
+        {% else %}
+            <a class="section" href="{{ element.uri }}">{{ element.text }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {#
+    <a class="section">Registration</a>
+    <span class="divider">/</span>
+    <div class="active section">{{ lipsum }}</div>
+    #}
+
+</div>
+<br>
+<br>

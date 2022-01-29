@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anime{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/site.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/semantic/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.x"></script>
+    <script src="/js/restapi.js"></script>
+    <script src="/js/utils.js"></script>
+{% endblock %}
+
+{% block body %}
+
+    <br>
+    <div class="ui container">
+        {% include("site/layout/topbar.html.twig") %}
+        {% if breadcrumb is defined %}
+            {% include("site/layout/breadcrumb.html.twig") %}
+        {% endif %}
+        {#
+        <div class="ui two column stackable grid">
+            <div class="four wide column">
+                {% include("site/layout/sidebar.html.twig") %}
+            </div>
+            <div class="twelve wide column">
+                <div class="ui segment">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        #}
+        <div class="ui stackable grid">
+            <div class="sixteen wide column">
+                <div class="ui segment">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
