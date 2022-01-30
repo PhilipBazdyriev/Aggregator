@@ -36,15 +36,20 @@ class GenreRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Genre
+    public function retrieveByName($name): ?Genre
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
+        $instance = $this->createQueryBuilder('g')
+            ->andWhere('g.name = :val')
+            ->setParameter('val', $name)
             ->getQuery()
             ->getOneOrNullResult()
         ;
+        if (!$instance) {
+            $instance = new Genre();
+            $instance->setName($name);
+            $this->getEntityManager()->persist($instance);
+            $this->getEntityManager()->flush();
+        }
+        return $instance;
     }
-    */
 }

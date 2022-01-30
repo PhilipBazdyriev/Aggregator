@@ -49,6 +49,11 @@ class ArticleSourcePage
      */
     private $last_scan_time;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Article::class, mappedBy="source_page", cascade={"persist", "remove"})
+     */
+    private $article;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +115,28 @@ class ArticleSourcePage
     public function setLastScanTime(?\DateTimeInterface $last_scan_time): self
     {
         $this->last_scan_time = $last_scan_time;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($article === null && $this->article !== null) {
+            $this->article->setSourcePage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($article !== null && $article->getSourcePage() !== $this) {
+            $article->setSourcePage($this);
+        }
+
+        $this->article = $article;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\ContentParsing\Shikimori\ListingLoader;
+use App\ContentParsing\Shikimori\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +15,8 @@ class DebugController extends AbstractController
      */
     public function index(): Response
     {
-        $loader = new ListingLoader('mangas'); // animes mangas
-        $result = $loader->loadPage(1);
-        dump($result);
-        return $this->render('debug/index.html.twig', [
-            'controller_name' => 'DebugController',
-        ]);
+        $date = "23 сент. 2014";
+        $result = Utils::StrToDate($date);
+        return new Response($result->format('d-m-Y'));
     }
 }

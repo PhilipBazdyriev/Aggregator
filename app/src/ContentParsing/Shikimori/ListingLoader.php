@@ -2,6 +2,7 @@
 
 namespace App\ContentParsing\Shikimori;
 
+use App\Entity\Article;
 use GuzzleHttp\Client;
 
 class ListingLoader
@@ -21,10 +22,10 @@ class ListingLoader
      */
     public function __construct($type)
     {
-        if ($type == 'anime') {
+        if ($type == Article::ANIME) {
             $this->type = 'animes';
         }
-        elseif ($type == 'manga') {
+        elseif ($type == Article::MANGA) {
             $this->type = 'mangas';
         }
         else {

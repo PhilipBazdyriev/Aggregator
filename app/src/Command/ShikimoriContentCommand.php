@@ -29,8 +29,8 @@ class ShikimoriContentCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $shikimori = new Shikimori($this->registry);
-        $result = $shikimori->loadContent(10);
-        $io->info('New URLs: ' . $result['new_pages']);
+        $result = $shikimori->loadContent(1);
+        $io->info('Pages scanned: ' . count($result));
 
         return Command::SUCCESS;
     }

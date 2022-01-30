@@ -2,6 +2,7 @@
 
 namespace App\ContentParsing\Shikimori;
 
+use App\Entity\Article;
 use App\Entity\ArticleSourcePage;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,7 +19,7 @@ class Listing
     public function run($pageCount): array
     {
         $newUrls = [];
-        $newUrls += $this->listPage('anime', 1); // TODO доделать скан
+        $newUrls += $this->listPage(Article::ANIME, 1); // TODO доделать скан
         for ($p = 0; $p < $pageCount; $p++) {
             //$newUrls += $this->listPage('anime', 1);
         }
@@ -30,7 +31,7 @@ class Listing
      */
     public function listPage($type, $page): array
     {
-        if ($type != 'anime' && $type != 'manga') {
+        if ($type != Article::ANIME && $type != Article::MANGA) {
             throw new \Exception('Wrong type!');
         }
 

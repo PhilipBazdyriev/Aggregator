@@ -32,17 +32,29 @@ class VirtualBrowser
 
     public function text($selector): string
     {
-        return $this->filter($selector)->text();
+        try {
+            return $this->filter($selector)->text();
+        } catch (\Exception $ex) {
+            return '';
+        }
     }
 
     public function html($selector): string
     {
-        return $this->filter($selector)->html();
+        try {
+            return $this->filter($selector)->html();
+        } catch (\Exception $ex) {
+            return '';
+        }
     }
 
     public function imageUrl($selector): string
     {
-        return $this->filter($selector)->attr('src');
+        try {
+            return $this->filter($selector)->attr('src');
+        } catch (\Exception $ex) {
+            return '';
+        }
     }
 
 

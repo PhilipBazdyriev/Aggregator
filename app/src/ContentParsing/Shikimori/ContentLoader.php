@@ -9,16 +9,16 @@ use Symfony\Component\DomCrawler\Crawler;
 class ContentLoader
 {
 
-    public function load(ArticleSourcePage $asp): array
+    public function load(string $url): array
     {
+        dump($url);
 
-        dump($asp->getUrl());
         $browser = new VirtualBrowser();
-        $browser->load($asp->getUrl());
+        $browser->load($url);
 
-        $title = $browser->text('h1');
+        $name = $browser->text('h1');
         $descriptionRu = $browser->text('.c-description .russian .b-text_with_paragraphs');
-        $scores = $browser->text('.scores .score-value');
+        $scores = (float)$browser->text('.scores .score-value');
         $poster = $browser->imageUrl('.c-image img');
 
         $keyMap = [
@@ -30,6 +30,11 @@ class ContentLoader
             'Лицензировано:' => 'license',
             'Премьера в РФ:' => 'premiere',
             'Жанры:' => 'genres',
+        ];
+        $statusTagMap = [
+            'вышло' => 'released',
+            'анонс' => 'anons',
+            'онгоинг' => 'ongoing',
         ];
         $details = [];
         $aboutNodes = $browser->filter('.c-about .line-container');
@@ -59,9 +64,10 @@ class ContentLoader
                     $details[$internalKey] = $genres;
                 }
                 elseif ($internalKey == 'status') {
-                    $status_tag = $aboutCrawler->filter('.value .b-anime_status_tag')->attr('data-text');
-                    //dump('    status_tag: ' . $status_tag);
-                    $details['status_tag'] = $status_tag;
+                    $statusTag = $aboutCrawler->filter('.value .b-anime_status_tag')->attr('data-text');
+                    if (isset($statusTagMap[$statusTag])) {
+                        $details['status_tag'] = $statusTagMap[$statusTag];
+                    }
                 } else {
                     $value = $aboutCrawler->filter('.value')->text();
                     $details[$internalKey] = $value;
@@ -72,7 +78,7 @@ class ContentLoader
         }
 
         return [
-            'title' => $title,
+            'name' => $name,
             'description' => $descriptionRu,
             'scores' => $scores,
             'poster' => $poster,
