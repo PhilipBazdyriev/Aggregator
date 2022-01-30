@@ -2,7 +2,7 @@
 
 namespace App\Frontend;
 
-use App\Entity\Title;
+use App\Entity\Article;
 
 class Breadcrumb
 {
@@ -26,7 +26,7 @@ class Breadcrumb
         ];
     }
 
-    public static function generateForTitle(Title $title): array
+    public static function generateForarticle(Article $article): array
     {
         return [
             self::getHome(),
@@ -35,8 +35,8 @@ class Breadcrumb
                 'text' => 'Аниме',
             ],
             [
-                'uri' => $title->getPageUri(),
-                'text' => $title->getName(),
+                'uri' => $article->getPageUri(),
+                'text' => $article->getName(),
             ],
         ];
     }

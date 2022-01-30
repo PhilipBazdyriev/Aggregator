@@ -2,37 +2,42 @@
 
 namespace App\ContentParsing\Shikimori;
 
-use App\Entity\TitleSourcePage;
+use App\Entity\ArticleSourcePage;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Listing
 {
 
-    private $registry;
+    private $managerRegistry;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->registry = $registry;
+        $this->managerRegistry = $managerRegistry;
     }
 
-    public function run($pageCount):int
+    public function run($pageCount): array
     {
-
+        $newUrls = [];
+        $newUrls += $this->listPage('anime', 1); // TODO доделать скан
+        for ($p = 0; $p < $pageCount; $p++) {
+            //$newUrls += $this->listPage('anime', 1);
+        }
+        return $newUrls;
     }
 
     /**
      * @throws \Exception
      */
-    public function listPage($type, $page):int
+    public function listPage($type, $page): array
     {
         if ($type != 'anime' && $type != 'manga') {
             throw new \Exception('Wrong type!');
         }
 
-        $newUrlCount = 0;
+        $newUrls = [];
 
-        $repo = $this->registry->getRepository(TitleSourcePage::class);
-        $entityManager = $this->registry->getManager();
+        $repo = $this->managerRegistry->getRepository(ArticleSourcePage::class);
+        $entityManager = $this->managerRegistry->getManager();
 
         $loader = new ListingLoader($type);
         $listing = $loader->loadPage($page);
@@ -40,21 +45,21 @@ class Listing
             $now = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
             foreach ($listing as $url) {
 
-                $titleSourcePage = $repo->findByUrl($url);
-                if (!$titleSourcePage) {
-                    $titleSourcePage = new TitleSourcePage();
-                    $titleSourcePage->setSourceAlias('shikimori');
-                    $titleSourcePage->setUrl($url);
-                    $titleSourcePage->setCreateTime($now);
-                    $titleSourcePage->setType($type);
+                $articleSourcePage = $repo->findByUrl($url);
+                if (!$articleSourcePage) {
+                    $articleSourcePage = new ArticleSourcePage();
+                    $articleSourcePage->setSourceAlias('shikimori');
+                    $articleSourcePage->setUrl($url);
+                    $articleSourcePage->setCreateTime($now);
+                    $articleSourcePage->setType($type);
 
-                    $entityManager->persist($titleSourcePage);
-                    $newUrlCount++;
+                    $entityManager->persist($articleSourcePage);
+                    $newUrls[] = $url;
                 }
             }
             $entityManager->flush();
         }
 
-        return $newUrlCount;
+        return $newUrls;
     }
 }

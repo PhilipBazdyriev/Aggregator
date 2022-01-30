@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\TitleRepository;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiController extends AbstractController
 {
     /**
-     * @Route("/api/title/list", name="api_title_list")
+     * @Route("/api/article/list", name="api_article_list")
      */
-    public function titleList(TitleRepository $repository): Response
+    public function articleList(ArticleRepository $repository): Response
     {
         $list = $repository->findAll();
         return $this->json([

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Title;
+use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Title|null find($id, $lockMode = null, $lockVersion = null)
- * @method Title|null findOneBy(array $criteria, array $orderBy = null)
- * @method Title[]    findAll()
- * @method Title[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Article|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Article|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Article[]    findAll()
+ * @method Article[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TitleRepository extends ServiceEntityRepository
+class ArticleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Title::class);
+        parent::__construct($registry, Article::class);
     }
 
     // /**
-    //  * @return Title[] Returns an array of Title objects
+    //  * @return Article[] Returns an array of Article objects
     //  */
     /*
     public function findByExampleField($value)
@@ -36,7 +36,7 @@ class TitleRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneByUriAlias($value): ?Title
+    public function findOneByUriAlias($value): ?Article
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.uri_alias = :val')

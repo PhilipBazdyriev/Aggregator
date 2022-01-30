@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Frontend\Breadcrumb;
-use App\Repository\TitleRepository;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,35 +14,35 @@ class SiteController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(TitleRepository $repo): Response
+    public function index(ArticleRepository $repo): Response
     {
-        $titles = $repo->findAll();
+        $articles = $repo->findAll();
         return $this->render('site/index.html.twig', [
-            'titles' => $titles,
+            'articles' => $articles,
         ]);
     }
 
     /**
      * @Route("/anime", name="anime")
      */
-    public function anime(TitleRepository $repo): Response
+    public function anime(ArticleRepository $repo): Response
     {
-        $titles = $repo->findAll();
+        $articles = $repo->findAll();
         return $this->render('site/index.html.twig', [
-            'titles' => $titles,
+            'articles' => $articles,
             'breadcrumb' => Breadcrumb::generateShort('/anime', 'Аниме'),
         ]);
     }
 
     /**
-     * @Route("/anime/{page_uri}", name="anime_title")
+     * @Route("/anime/{page_uri}", name="anime_article")
      */
-    public function animeTitle($page_uri, TitleRepository $repo): Response
+    public function animearticle($page_uri, ArticleRepository $repo): Response
     {
-        $title = $repo->findOneByUriAlias($page_uri);
-        return $this->render('site/title.html.twig', [
-            'title' => $title,
-            'breadcrumb' => Breadcrumb::generateForTitle($title),
+        $article = $repo->findOneByUriAlias($page_uri);
+        return $this->render('site/article.html.twig', [
+            'article' => $article,
+            'breadcrumb' => Breadcrumb::generateForarticle($article),
         ]);
     }
 

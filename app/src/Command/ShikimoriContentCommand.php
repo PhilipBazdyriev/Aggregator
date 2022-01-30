@@ -11,10 +11,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use App\ContentParsing\Shikimori\Shikimori;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ShikimoriListingCommand extends Command
+class ShikimoriContentCommand extends Command
 {
-    protected static $defaultName = 'shikimori:listing';
-    protected static $defaultDescription = 'Load listings from Shikimori';
+    protected static $defaultName = 'shikimori:content';
+    protected static $defaultDescription = 'Load contents from Shikimori';
 
     private $registry;
 
@@ -29,8 +29,8 @@ class ShikimoriListingCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $shikimori = new Shikimori($this->registry);
-        $result = $shikimori->list(10);
-        $io->info('New URLs: ' . count($result));
+        $result = $shikimori->loadContent(10);
+        $io->info('New URLs: ' . $result['new_pages']);
 
         return Command::SUCCESS;
     }

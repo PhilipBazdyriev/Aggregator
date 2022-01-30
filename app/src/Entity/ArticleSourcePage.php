@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\TitleSourcePageRepository;
+use App\Repository\ArticleSourcePageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
- * @ORM\Entity(repositoryClass=TitleSourcePageRepository::class)
- * @ORM\Table(name="titles_source_pages",
+ * @ORM\Entity(repositoryClass=ArticleSourcePageRepository::class)
+ * @ORM\Table(name="articles_source_pages",
  *    uniqueConstraints={
  *        @UniqueConstraint(name="url",
  *            columns={"url"})
  *    }
  * )
  */
-class TitleSourcePage
+class ArticleSourcePage
 {
     /**
      * @ORM\Id

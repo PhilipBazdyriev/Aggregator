@@ -4,26 +4,26 @@
 
 {% block content %}
     <div id="list">
-        <div v-if="titles.length">
+        <div v-if="articles.length">
             <div class="ui link cards four column doubling stackable">
-                <div v-for="title in titles" class="column card">
+                <div v-for="article in articles" class="column card">
                     <div class="image">
-                        <a v-bind:href="title.pageUri">
-                            <img v-bind:src="title.posterUrl" class="ui fluid image"/>
+                        <a v-bind:href="article.pageUri">
+                            <img v-bind:src="article.posterUrl" class="ui fluid image"/>
                         </a>
                     </div>
                     <div class="content">
-                        <div class="header">${ title.name }$</div>
+                        <div class="header">${ article.name }$</div>
                         {#
-                        <div class="meta">${ title.type }$</div>
+                        <div class="meta">${ article.type }$</div>
                         #}
                         <div class="description" style="height: 100px; overflow-y: hidden">
-                            ${ title.description }$
+                            ${ article.description }$
                         </div>
                     </div>
                     <div class="extra content">
-                        <span class="right floated">${ title.year }$</span>
-                        <span><i class="user icon"></i> ${ title.ageRating }$ </span>
+                        <span class="right floated">${ article.year }$</span>
+                        <span><i class="user icon"></i> ${ article.ageRating }$ </span>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             delimiters: ['${', '}$'],
             data() {
                 return {
-                    titles: []
+                    articles: []
                 }
             },
             mounted() {
@@ -56,9 +56,9 @@
 
         const vueApp = Vue.createApp(ListApp).mount('#list')
 
-        restApi.get('title/list', function (response) {
+        restApi.get('article/list', function (response) {
             if (response && response.ok) {
-                vueApp.titles = response.list;
+                vueApp.articles = response.list;
             }
         });
 

@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\TitleRepository;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TitleRepository::class)
- * @ORM\Table(name="titles")
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Table(name="articles")
  */
-class Title
+class Article
 {
     /**
      * @ORM\Id

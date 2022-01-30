@@ -1,14 +1,14 @@
 {% extends 'site.html.twig' %}
 
-{% block title %}{{ title.name }} ({{ title.year }}){% endblock %}
+{% block title %}{{ article.name }} ({{ article.year }}){% endblock %}
 
 {% block content %}
-    <img src="{{ title.posterUrl }}" alt="{{ title.name }} ({{ title.year }})" class="ui top aligned medium left floated image">
-    <h1 style="margin-top: 0">{{ title.name }} <span style="color: #aaa"></span></h1>
-    <h2>{{ title.year }}</h2>
+    <img src="{{ article.posterUrl }}" alt="{{ article.name }} ({{ article.year }})" class="ui top aligned medium left floated image">
+    <h1 style="margin-top: 0">{{ article.name }} <span style="color: #aaa"></span></h1>
+    <h2>{{ article.year }}</h2>
     <div class="ui star rating" data-rating="4" data-max-rating="5" id="rating"></div>
-    <h3>{{ title.ageRating }}</h3>
-    <div>{{ title.description|nl2br }}</div>
+    <h3>{{ article.ageRating }}</h3>
+    <div>{{ article.description|nl2br }}</div>
     <div class="clearfix"></div>
     <script>
         $('#rating')
