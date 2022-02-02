@@ -1,0 +1,75 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: Calibri, "Roboto Light", Verdana;
+}
+input, select, textarea {
+    padding: 3px 5px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+.popup-body {
+    width: 700px;
+    height: 500px;
+    font-size: 15px;
+}
+.control-panel {
+    background-color: #f6f6f6;
+    padding: 15px;
+}
+.control-panel button {
+    float: right;
+    border-radius: 3px;
+    color: #fff;
+    border: 0;
+    padding: 7px 10px;
+    cursor: pointer;
+}
+.control-panel button.start {
+    background-color: #191;
+}
+.control-panel button.start:hover {
+    background-color: #3b3;
+}
+.control-panel button.stop {
+    display: none;
+    background-color: #911;
+}
+.control-panel button.stop:hover {
+    background-color: #b33;
+}
+.content {
+    padding: 15px;
+}
+.status-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #f6f6f6;
+}
+
+.source-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.source-table th, .source-table td {
+    text-align: left;
+    padding: 5px 10px;
+}
+.source-table th {
+    background-color: #f3f3f3;
+}
+.source-table td {
+    border-top: 1px solid #ddd;
+    background-color: #fbfbfb;
+}
+.status-bar .error {
+    color: red;
+}
+.status-bar .warning {
+    color: #8b771a;
+}

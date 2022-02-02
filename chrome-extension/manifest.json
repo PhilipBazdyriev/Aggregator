@@ -1,0 +1,49 @@
+{
+  "name": "Aggregator Spy",
+  "action": {
+    "default_title": "Aggregator Spy",
+    "default_icon": "img/icons/own/16.png",
+    "default_popup": "html/popup.html"
+  },
+  "manifest_version": 3,
+  "version": "0.1",
+  "description": "Turns the page red when you click the icon",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "storage",
+    "background",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "https://yummyanime.club/*",
+    "http://aggregator.local/*"
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "*://*.yummyanime.club/*",
+      "https://yummyanime.club/*",
+      "*://*.aggregator.local/*"
+    ]
+  },
+  "icons": {
+    "16": "img/icons/own/16.png",
+    "48": "img/icons/own/48.png",
+    "128": "img/icons/own/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://yummyanime.club/*"
+      ],
+      "js": [
+        "js/jquery-3.1.1.min.js",
+        "js/content.js"
+      ]
+    }
+  ]
+}

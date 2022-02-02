@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aggregator Spy</title>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/popup/Popup.js"></script>
+    <script src="/js/popup/Port.js"></script>
+    <script src="/js/popup/View.js"></script>
+</head>
+<body>
+<div class="popup-body">
+    <div class="control-panel">
+        <select name="source" id="source">
+            <option value="">Источник...</option>
+            <option value="yummyanime">yummyanime</option>
+            <option value="shikimori">shikimori</option>
+            <option value="anivisual">anivisual</option>
+        </select>
+        <select name="action" id="action">
+            <option value="">Действие...</option>
+            <option value="listing">списки</option>
+            <option value="content">контент</option>
+        </select>
+        <button class="start" id="btn-start">Запустить</button>
+        <button class="stop" id="btn-stop">Остановить</button>
+    </div>
+    <div class="content">
+        <table class="source-table" id="source-table">
+            <thead>
+            <tr>
+                <th>Источник</th>
+                <th>URL загружено</th>
+                <th>URL не загружено</th>
+                <th>+ Листинг</th>
+                <th>+ Контент</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="10"><center><i>loading...</i></center></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--
+        <button id="test1">test 1</button>
+        <button id="test2">test 2</button>
+        -->
+    </div>
+    <div class="status-bar"></div>
+</div>
+<script src="/js/popup.js"></script>
+</body>
+</html>
