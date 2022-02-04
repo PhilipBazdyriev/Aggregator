@@ -96,6 +96,7 @@ class Article
 
     /**
      * @ORM\OneToOne(targetEntity=ArticleSourcePage::class, inversedBy="article", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="source_page", referencedColumnName="id", onDelete="SET NULL")
      */
     private $source_page;
 
@@ -141,7 +142,6 @@ class Article
     public function setYear(int $year): self
     {
         $this->year = $year;
-
         return $this;
     }
 

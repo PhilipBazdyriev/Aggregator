@@ -20,8 +20,8 @@ class ArticleSourcePageRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return ArticleSourcePage[] Returns an array of ArticleSourcePage objects
-    */
+     * @return ArticleSourcePage Returns ArticleSourcePage object
+     */
     public function findByUrl($value)
     {
         return $this->createQueryBuilder('t')
@@ -30,32 +30,49 @@ class ArticleSourcePageRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     /**
-    * @return ArticleSourcePage[] Returns an array of ArticleSourcePage objects
-    */
+     * @return ArticleSourcePage[] Returns an array of ArticleSourcePage objects
+     */
     public function getForScanning($maxResults = 1)
     {
         return $this->createQueryBuilder('t')
             ->orderBy('t.last_scan_time', 'ASC')
             ->setMaxResults($maxResults)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
-    /*
-    public function findOneBySomeField($value): ?ArticleSourcePage
+    public function getScannedCount($source): int
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        $qb = $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.last_scan_time IS NOT NULL')
         ;
+        if ($source) {
+            $qb->andWhere('t.source_alias = :val')
+                ->setParameter('val', $source);
+        }
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult();
     }
-    */
+
+    public function getNotScannedCount($source): int
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.last_scan_time IS NULL')
+        ;
+        if ($source) {
+            $qb->andWhere('t.source_alias = :val')
+                ->setParameter('val', $source);
+        }
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }

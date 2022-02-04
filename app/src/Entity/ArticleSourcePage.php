@@ -25,7 +25,7 @@ class ArticleSourcePage
     private $id;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="enum('shikimori', 'yamianime', 'anivisual')")
+     * @ORM\Column(type="string", columnDefinition="enum('yummyanime', 'shikimori', 'anivisual')")
      */
     private $source_alias;
 
