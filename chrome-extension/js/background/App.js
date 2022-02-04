@@ -1,10 +1,10 @@
 class App {
 
+    lastPopupStats;
+
     constructor() {
         this.api = new Api()
-/*
         this.loaderConroller = new LoaderController()
-*/
 
         this.yummyanime = new YummyAnime();
         this.shikimori = new Shikimori();
@@ -25,44 +25,41 @@ class App {
     }
 
     onEvent(sender, event, data) {
+
         if (sender === "popup") {
             if (event === "inited") {
                 this.getArticleSourcePageStats()
+                this.setupPopup()
             } else if (event === "startApp") {
-
+                this.startApp()
             } else if (event === "stopApp") {
-
+                this.stopApp()
             } else {
                 console.warn("Undefined event", sender, event, data)
             }
         } else if (sender === "content") {
-            /*
-            if (event == "updateSourceStats") {
-
+            if (event === "spyYummyAnimeListing") {
+                app.yummyanime.handleListing(data)
             } else {
                 console.warn("Undefined event", sender, event, data)
             }
-            */
         } else {
             console.warn("Undefined sender")
         }
     }
 
-/*
-    start() {
-        this.view.setExecutionMode()
-        this.loaderConroller.loadListing(this.yummyanime)
+    startApp() {
+        this.loaderConroller.start(this.yummyanime, "listing")
     }
 
-    stop() {
-        this.view.setIdleMode()
-    }*/
-
+    stopApp() {
+        this.loaderConroller.stop()
+    }
 
     getArticleSourcePageStats() {
         let that = this;
         this.api.get('articleSourcePage/stats', function (response) {
-            if (response.ok) {
+            if (response && response.ok) {
                 for (let source in response.sources) {
                     if (that.stats[source]) {
                         let data = response.sources[source]
@@ -73,10 +70,24 @@ class App {
                     }
                 }
                 messaging.send("updateSourceStats", that.stats)
+                that.lastPopupStats = that.stats
             } else {
                 that.error('Not loaded stats');
             }
         });
+    }
+
+    setupPopup() {
+        let source = ""
+        if (this.loaderConroller.source) {
+            source = this.loaderConroller.source.alias
+        }
+        messaging.send("setupPopup", {
+            status: this.loaderConroller.status,
+            action: this.loaderConroller.action,
+            source: source,
+            stats: this.lastPopupStats
+        })
     }
 
 }

@@ -4,11 +4,11 @@ class Shikimori extends Source {
         super("shikimori", "Shikimori");
     }
 
-    loadListing() {
+    loadNextListing() {
 
     }
 
-    loadContent() {
+    loadNextContent() {
 
     }
 

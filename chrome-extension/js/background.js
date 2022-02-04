@@ -75,7 +75,6 @@ class Messaging {
     }
 
     onMessage(msg) {
-        console.log("onMessage", msg)
         this.onEvent(msg.sender, msg.event, msg.data)
     }
 
@@ -84,28 +83,31 @@ class Messaging {
     }
 
     onEvent(sender, event, data) {
-        console.log("onEvent", sender, event, data)
-        this.send("feedback", "i see you " + sender)
+        console.warn("onEvent:", [sender, event, data])
         if (this.onEventListener) {
-            console.log("onEvent this.onEventListener", this.onEventListener)
             this.onEventListener.onEvent(sender, event, data)
         }
     }
 
     send(event, data) {
         for (let key in this.ports) {
-            let port = this.ports[key]
-            port.postMessage({
-                sender: "background",
-                event: event,
-                data: data
-            });
+            try {
+                let port = this.ports[key]
+                port.postMessage({
+                    sender: "background",
+                    event: event,
+                    data: data
+                });
+            } catch (e) {
+
+            }
         }
     }
 
 }
 
 const app = new App()
+const api = app.api
 
 const messaging = new Messaging(app)
 chrome.runtime.onConnect.addListener(function(port) {

@@ -32,20 +32,20 @@ class View {
         messaging.send("stopApp")
     }
 
-    setStatus(data) {
-        $(".status-bar").html(JSON.stringify(data));
+    setStatus(data, elementClass = '') {
+        $(".status-bar").html('<span class="' + elementClass + '"><b>Error</b> ' + JSON.stringify(data) + '</span>')
     }
 
     error(data) {
-        this.setStatus('<span class="error"><b>Error</b> ' + data + '</span>')
+        this.setStatus(data, 'error')
     }
 
     warning(data) {
-        this.setStatus('<span class="warning"><b>Warning</b> ' + data + '</span>')
+        this.setStatus(data, 'warning')
     }
 
     log(data) {
-        this.setStatus('<span class="log">' + data + '</span>')
+        this.setStatus(data, 'log')
     }
 
     setExecutionMode() {
@@ -69,11 +69,6 @@ class View {
             trHtml = "<tr>" + trHtml + "</tr>";
             $("#source-table").find("tbody").append(trHtml);
         }
-    }
-
-    showLoadFrame()
-    {
-        $("#loadFrame").show()
     }
 
 }

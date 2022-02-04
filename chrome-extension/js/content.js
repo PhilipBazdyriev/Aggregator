@@ -54,7 +54,6 @@ class Messaging {
     }
 
     onMessage(msg) {
-        console.log("onMessage", msg)
         this.onEvent(msg.sender, msg.event, msg.data)
     }
 
@@ -63,9 +62,8 @@ class Messaging {
     }
 
     onEvent(sender, event, data) {
-        console.log("onEvent", sender, event, data)
+        console.warn("onEvent:", [sender, event, data])
         if (this.onEventListener) {
-            console.log("onEvent this.onEventListener", this.onEventListener)
             this.onEventListener.onEvent(sender, event, data)
         }
     }
@@ -80,11 +78,34 @@ class Messaging {
 
 }
 
-const messaging = new Messaging()
+class Content {
+
+    constructor() {
+
+    }
+
+    onEvent(sender, event, data) {
+        console.log("onMessage", sender, event, data)
+        if (sender === "background") {
+            if (event === "contentCall") {
+                console.log("==contentCall")
+                if (data.defaultAction == 'yummyanime_listing') {
+                    yummyanime_listing()
+                }
+            }
+        } else {
+            console.warn("Undefined sender")
+        }
+    }
+
+}
+
+
+const content = new Content();
+
+const messaging = new Messaging(content)
 var port = chrome.runtime.connect({name: "knockknock"});
 port.onMessage.addListener(function(msg) {
     messaging.onMessage(msg)
 });
 messaging.setPort(port)
-
-messaging.send("start", 333)

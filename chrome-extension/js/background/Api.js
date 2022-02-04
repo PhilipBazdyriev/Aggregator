@@ -46,6 +46,9 @@ class Api {
             callback(json);
         } catch (error) {
             console.error('API error:', error);
+            if (error.message === 'Failed to fetch') {
+                messaging.send('statusError', "Server not accessible")
+            }
             callback();
         }
     }

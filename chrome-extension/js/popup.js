@@ -52,7 +52,6 @@ class Messaging {
     }
 
     onMessage(msg) {
-        console.log("onMessage", msg)
         this.onEvent(msg.sender, msg.event, msg.data)
     }
 
@@ -61,9 +60,8 @@ class Messaging {
     }
 
     onEvent(sender, event, data) {
-        console.log("onEvent", sender, event, data)
+        console.warn("onEvent:", [sender, event, data])
         if (this.onEventListener) {
-            console.log("onEvent this.onEventListener", this.onEventListener)
             this.onEventListener.onEvent(sender, event, data)
         }
     }
